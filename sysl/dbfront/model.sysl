@@ -1,0 +1,15 @@
+dbfront [package="dbfront", ~DB]:
+	@basePath = "dbfront"
+
+	/endpoint/{id <: string}:
+		POST [mediatype="text/plain", ~body]:
+			return 200 <: StatusMsg
+		GET [mediatype="text/plain", ~body]:
+			return ok <: StatusMsg
+
+	!type StatusMsg:
+		status <: string
+	
+	!table data:
+		id <: int [~pk]
+		txt <: string

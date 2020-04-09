@@ -1,0 +1,42 @@
+clientapp [package="clientapp"]:
+	@basePath = "clientapp"
+
+	!alias str:
+		string
+
+	!type StatusMsg:
+		status <: string
+
+	/endpoint/{id <: string}:
+		POST [mediatype="text/plain", ~body]:
+			return 200 <: StatusMsg
+		GET [mediatype="text/plain", ~body]:
+			return ok <: str
+
+	/foo:
+        GET:
+            dep1 <- GET foofoo/{id}
+            return str
+
+	/bar:
+        GET:
+            dep2 <- GET barbar/{id}
+            return str
+
+
+dep1 [package="dep1"]:
+	!alias str:
+		string
+
+    /foofoo/{id <: int}:
+        GET[mediatype="text/plain", ~body]:
+            return ok <: str
+	
+
+dep2 [package="dep2"]:
+	!alias str:
+		string
+
+    /barbar/{id <: int}:
+        GET[mediatype="text/plain", ~body]:
+            return ok <: str

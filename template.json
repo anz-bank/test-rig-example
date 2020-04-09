@@ -1,0 +1,13 @@
+{
+    "dbfront": {
+        "name": "dbfront",
+        "url": "github.com/anz-bank/test-rig-example/gen/dbfront",
+        "port": "8080",
+        "impl": {
+            "name": "dbfront_impl",
+            "url": "github.com/anz-bank/test-rig-example/pkg/dbfront_impl",
+            "interface_factory": "GetServiceInterfaceImplementation",
+            "callback_factory": "GetCallback"
+        }
+    }
+}
