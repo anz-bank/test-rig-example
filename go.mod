@@ -7,4 +7,5 @@ require (
 	github.com/anz-bank/sysl-template v0.0.0-20200326001351-c7c582184862
 	github.com/go-chi/chi v4.0.4+incompatible
 	github.com/lib/pq v1.3.0
+	github.com/rickb777/date v1.12.4
 )

@@ -3,17 +3,17 @@ package clientapp_impl
 import (
 	"context"
 
-	simple_app "github.com/anz-bank/test-rig-example/gen/simple_app"
+	clientapp "github.com/anz-bank/test-rig-example/gen/clientapp"
 )
 
 type ServiceImpl struct {
-	simple_app.ServiceInterface
+	clientapp.ServiceInterface
 }
 
-func (s ServiceImpl) GetEndpoint(ctx context.Context, req *simple_app.GetEndpointRequest, client simple_app.GetEndpointClient) (*simple_app.Str, error) {
+func (s ServiceImpl) GetEndpoint(ctx context.Context, req *clientapp.GetEndpointRequest, client clientapp.GetEndpointClient) (*clientapp.Str, error) {
 	return nil, nil
 }
 
-func (s ServiceImpl) PostEndpointWithArg(ctx context.Context, req *simple_app.PostEndpointWithArgRequest, client simple_app.PostEndpointWithArgClient) (*simple_app.StatusMsg, error) {
+func (s ServiceImpl) PostEndpointWithArg(ctx context.Context, req *clientapp.PostEndpointWithArgRequest, client clientapp.PostEndpointWithArgClient) (*clientapp.StatusMsg, error) {
 	return nil, nil
 }

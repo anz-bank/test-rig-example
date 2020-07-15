@@ -7,21 +7,24 @@ out = gen
 # Current go import path
 basepath = github.com/anz-bank/test-rig-example
 
+SYSL = ./syslw
 TRANSLOCATION = github.com/anz-bank/sysl-go/codegen/transforms
-TRANSFORM = svc_error_types.sysl svc_handler.sysl svc_interface.sysl svc_router.sysl svc_types.sysl
+TRANSFORMS = svc_error_types.sysl svc_handler.sysl svc_interface.sysl svc_router.sysl svc_types.sysl
 DOWNSTREAMTRANSFORMS = svc_client.sysl svc_error_types.sysl svc_types.sysl
 GRAMMAR = github.com/anz-bank/sysl-go/codegen/grammars/go.gen.g
 START = goFile
 
 .PHONY: clean gen
-sysl: clean gen downstream format
+sysl: gen downstream format
 
 # Generate files with internal git service
 gen:
-	$(foreach file, $(TRANSFORMS), $(shell sysl codegen --basepath=$(basepath)/${out}/ --transform $(TRANSLOCATION)/$(file) --grammar ${GRAMMAR} --start ${START} --outdir=${out}/${app} --app-name ${app} $(input)))
+	$(shell mkdir -p ${out}/${app})
+	$(foreach file, $(TRANSFORMS), $(shell ${SYSL} codegen --basepath=$(basepath)/${out}/ --transform $(TRANSLOCATION)/$(file) --grammar ${GRAMMAR} --start ${START} --outdir=${out}/${app} --app-name ${app} $(input)))
 
 downstream:
-	$(foreach file, $(DOWNSTREAMTRANSFORMS), $(foreach downstream, $(down), $(shell sysl codegen --basepath=$(basepath)/${out}/ --transform $(TRANSLOCATION)/$(file) --grammar ${GRAMMAR} --start ${START} --outdir=${out}/${downstream} --app-name ${downstream} $(input))))
+	$(foreach name, $(down), $(shell mkdir -p ${out}/${name}))
+	$(foreach file, $(DOWNSTREAMTRANSFORMS), $(foreach downstream, $(down), $(shell ${SYSL} codegen --basepath=$(basepath)/${out}/ --transform $(TRANSLOCATION)/$(file) --grammar ${GRAMMAR} --start ${START} --outdir=${out}/${downstream} --app-name ${downstream} $(input))))
 
 format:
 	gofmt -s -w ${out}/${app}/*

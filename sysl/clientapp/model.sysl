@@ -15,12 +15,12 @@ clientapp [package="clientapp"]:
 
 	/foo:
         GET:
-            dep1 <- GET foofoo/{id}
+            dep1 <- GET /foofoo/{id}
             return str
 
 	/bar:
         GET:
-            dep2 <- GET barbar/{id}
+            dep2 <- GET /barbar/{id}
             return str
 
 

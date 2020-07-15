@@ -1,0 +1,5 @@
+*                   text=auto eol=lf
+go.sum              linguist-generated=true
+docker-compose.yml  linguist-generated=true
+cmd/**              linguist-generated=true
+gen/**              linguist-generated=true

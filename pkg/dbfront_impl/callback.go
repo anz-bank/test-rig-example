@@ -41,9 +41,14 @@ func (g Callback) Config() validator.Validator {
 }
 
 func (g Callback) HandleError(ctx context.Context, w http.ResponseWriter, kind common.Kind, message string, cause error) {
-	se := common.CreateError(ctx, kind, message, cause)
-	httpError := common.HandleError(ctx, se)
-	httpError.WriteError(ctx, w)
+	common.HandleError(ctx, w, kind, message, cause, func(ctx context.Context, err error) *common.HTTPError {
+		he := common.MapError(ctx, err)
+		return &he
+	})
+}
+
+func (g Callback) MapError(ctx context.Context, err error) *common.HTTPError {
+	return nil
 }
 
 func (g Callback) DownstreamTimeoutContext(ctx context.Context) (context.Context, context.CancelFunc) {
