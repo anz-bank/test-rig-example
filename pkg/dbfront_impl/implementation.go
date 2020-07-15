@@ -1,4 +1,4 @@
-package dbfront
+package dbfront_impl
 
 import (
 	"context"
@@ -15,7 +15,7 @@ func GetEndpoint(ctx context.Context, req *dbfront.GetEndpointRequest, client db
 	}
 	statement := `SELECT txt FROM data WHERE id=$1;`
 	var txt string
-	row := client.conn.QueryRowContext(ctx, statement, id)
+	row := client.DB.QueryRowContext(ctx, statement, id)
 	switch err := row.Scan(&txt); err {
 	case sql.ErrNoRows:
 		return nil, err
@@ -33,7 +33,7 @@ func PostEndpointWithArg(ctx context.Context, req *dbfront.PostEndpointWithArgRe
 		return nil, err
 	}
 	statement := `INSERT INTO data (id, txt) VALUES($1, $2)`
-	_, err = client.conn.ExecContext(ctx, statement, id, "kekeke")
+	_, err = client.DB.ExecContext(ctx, statement, id, "kekeke")
 	if err != nil {
 		return nil, err
 	}

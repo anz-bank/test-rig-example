@@ -1,4 +1,4 @@
-package dbfront
+package dbfront_impl
 
 import (
 	"context"
