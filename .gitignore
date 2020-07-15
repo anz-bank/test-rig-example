@@ -2,6 +2,3 @@
 .sysl
 
 /build
-/gen
-/cmd
-docker-compose.yml

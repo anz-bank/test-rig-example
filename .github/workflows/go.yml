@@ -7,6 +7,7 @@ on:
     branches:
       - "*"
 
+# TODO: Check that make is pristine instead of rebuilding.
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,6 +16,9 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.14
+
+      - name: Install goimports
+        run: go get golang.org/x/tools/cmd/goimports
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -29,16 +33,8 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.14
-
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
-
-      - name: Generate code
-        run: make
 
       - name: Run golangci-lint 1.23.8
         uses: actions-contrib/golangci-lint@v1

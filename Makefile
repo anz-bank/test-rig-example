@@ -15,7 +15,7 @@ dbfront:
 
 testrig:
 	${SYSL} test-rig --template="$(VARS)" --output-dir="$(OUT)" $(INPUT)
-	$(shell mkdir -p $(OUT)/vendor)
+	$(shell mkdir -p vendor)
 
 clean:
 	make -f ./sysl/clientapp/Makefile clean
