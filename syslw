@@ -66,4 +66,3 @@ fi
 
 # execute the command
 ${RELEASE_EXE} "$@"
-#sysl "$@"

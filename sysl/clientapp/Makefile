@@ -20,11 +20,11 @@ sysl: gen downstream format
 # Generate files with internal git service
 gen:
 	$(shell mkdir -p ${out}/${app})
-	$(foreach file, $(TRANSFORMS), $(shell $(SYSL) codegen --basepath=$(basepath)/${out}/ --transform $(TRANSLOCATION)/$(file) --grammar ${GRAMMAR} --start ${START} --outdir=${out}/${app} --app-name ${app} $(input)))
+	$(foreach file, $(TRANSFORMS), $(shell ${SYSL} codegen --basepath=$(basepath)/${out}/ --transform $(TRANSLOCATION)/$(file) --grammar ${GRAMMAR} --start ${START} --outdir=${out}/${app} --app-name ${app} $(input)))
 
 downstream:
 	$(foreach name, $(down), $(shell mkdir -p ${out}/${name}))
-	$(foreach file, $(DOWNSTREAMTRANSFORMS), $(foreach downstream, $(down), $(shell $(SYSL) codegen --basepath=$(basepath)/${out}/ --transform $(TRANSLOCATION)/$(file) --grammar ${GRAMMAR} --start ${START} --outdir=${out}/${downstream} --app-name ${downstream} $(input))))
+	$(foreach file, $(DOWNSTREAMTRANSFORMS), $(foreach downstream, $(down), $(shell ${SYSL} codegen --basepath=$(basepath)/${out}/ --transform $(TRANSLOCATION)/$(file) --grammar ${GRAMMAR} --start ${START} --outdir=${out}/${downstream} --app-name ${downstream} $(input))))
 
 format:
 	gofmt -s -w ${out}/${app}/*
