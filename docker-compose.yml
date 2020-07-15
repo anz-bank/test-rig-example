@@ -1,0 +1,20 @@
+services:
+  dbfront:
+    build:
+      context: .
+      dockerfile: cmd/dbfront/Dockerfile
+    depends_on:
+    - dbfront_db
+    ports:
+    - 8080:8080
+  dbfront_db:
+    environment:
+      POSTGRES_DB: somedb
+      POSTGRES_PASSWORD: somepassword
+      POSTGRES_USER: someuser
+    image: postgres:latest
+    ports:
+    - 5432:5432
+    volumes:
+    - ../gen/dbfront/dbfront.sql:/docker-entrypoint-initdb.d/dbfront.sql
+version: "3.3"
