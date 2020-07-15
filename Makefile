@@ -1,6 +1,11 @@
-all: codegen
+SYSL = ./syslw
+VARS=template.json
+OUT=cmd
+INPUT=sysl/dbfront/model.sysl
 
-codegen: clientapp dbfront testrig
+all: gen
+
+gen: clean clientapp dbfront testrig
 
 clientapp:
 	make -f ./sysl/clientapp/Makefile all
@@ -8,14 +13,13 @@ clientapp:
 dbfront:
 	make -f ./sysl/dbfront/Makefile all
 
-VARS=template.json
-OUT=cmd
-INPUT=sysl/dbfront/model.sysl
-
 testrig:
-	sysl test-rig --template="$(VARS)" --output-dir="$(OUT)" $(INPUT)
+	$(SYSL) test-rig --template="$(VARS)" --output-dir="$(OUT)" $(INPUT)
+	$(shell mkdir -p $(OUT)/vendor)
 
 clean:
-	rm -rf cmd/*
+	make -f ./sysl/clientapp/Makefile clean
+	make -f ./sysl/dbfront/Makefile clean
+	rm -rf $(OUT)/* docker-compose.yml
 
 .PHONY: testrig

@@ -1,4 +1,6 @@
 .vscode
+.sysl
+
 /build
 /gen
 /cmd
